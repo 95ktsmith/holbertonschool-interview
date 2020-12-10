@@ -4,6 +4,8 @@
 
 def canUnlockAll(boxes):
     """ Will return True if all boxes can be unlocked, or False otherwise """
+    if boxes is None:
+        return False
     return False not in unlock(0, boxes, [False for i in range(0, len(boxes))])
 
 
@@ -14,5 +16,6 @@ def unlock(box, boxes, unlocked):
     if unlocked[box] == False:
         unlocked[box] = True
         for key in boxes[box]:
-            unlock(key, boxes, unlocked)
+            if key < len(boxes):
+                unlock(key, boxes, unlocked)
     return unlocked
