@@ -7,7 +7,7 @@ def canUnlockAll(boxes):
     if boxes is None:
         return False
     if len(boxes) == 0:
-        return True
+        return False
     return False not in unlock(0, boxes, [False for i in range(0, len(boxes))])
 
 
