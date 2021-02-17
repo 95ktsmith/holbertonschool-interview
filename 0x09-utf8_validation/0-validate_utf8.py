@@ -8,4 +8,4 @@ def validUTF8(data):
     data is a list of numbers representing ASCII characters
     Returns True of data is valid, False if not
     """
-    return True not in map(lambda x: x > 255, data)
+    return True not in map(lambda x: x > 255 or x < 0, data)
