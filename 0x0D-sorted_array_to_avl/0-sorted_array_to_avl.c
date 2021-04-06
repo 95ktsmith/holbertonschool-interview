@@ -33,7 +33,7 @@ avl_t *insert_node(avl_t *parent, int *array, size_t size)
 	node = malloc(sizeof(avl_t));
 	if (node == NULL)
 	{
-		while (root->parent != NULL)
+		while (root && root->parent != NULL)
 			root = root->parent;
 		free_tree(root);
 		return (NULL);
