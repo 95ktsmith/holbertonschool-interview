@@ -9,17 +9,17 @@ request({ url: url, method: 'GET' },
       const info = JSON.parse(body);
       for (let i = 0; i < info.characters.length; i++) {
         await new Promise(function (resolve, reject) {
-            request({ url: info.characters[i], method: 'GET' },
-                function (charError, charResponse, charBody) {
-                    if (charError) {
-                        console.log(charError);
-                    } else {
-                        const charInfo = JSON.parse(charBody);
-                        console.log(charInfo.name);
-                    }
-                    resolve();
-          });
-        });  
+          request({ url: info.characters[i], method: 'GET' },
+            function (charError, charResponse, charBody) {
+              if (charError) {
+                console.log(charError);
+              } else {
+                const charInfo = JSON.parse(charBody);
+                console.log(charInfo.name);
+              }
+              resolve();
+            });
+        });
       }
     }
   });
