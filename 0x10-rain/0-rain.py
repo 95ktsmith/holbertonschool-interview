@@ -34,7 +34,7 @@ def rain(walls):
     # I did this without recursion and I hate it
 
     rain = 0
-    if len(walls) < 3:
+    if type(walls) is not list or len(walls) < 3:
         return rain
 
     # Left
