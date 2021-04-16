@@ -39,7 +39,7 @@ def rain(walls):
 
     # Left
     hi_i, hi = highest(walls)
-    while len(walls[:hi_i]) > 2:
+    while len(walls[:hi_i]) >= 2:
         lo_i, lo = highest(walls[:hi_i])
         rain += rain_collected(walls[lo_i:hi_i + 1], lo)
         hi_i = lo_i
@@ -47,7 +47,7 @@ def rain(walls):
 
     # Right
     hi_i, hi = highest(walls)
-    while len(walls[hi_i + 1:]) > 2:
+    while len(walls[hi_i + 1:]) >= 2:
         lo_i, lo = highest(walls[hi_i + 1:], offset=hi_i + 1)
         rain += rain_collected(walls[hi_i:lo_i + 1], lo)
         hi_i = lo_i
