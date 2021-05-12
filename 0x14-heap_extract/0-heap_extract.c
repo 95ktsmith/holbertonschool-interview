@@ -28,11 +28,15 @@ int heap_extract(heap_t **root)
 		node->left->parent = node;
 		node->right = (*root)->right;
 		node->right->parent = node;
+		free(*root);
+		*root = node;
+		reorder(node);
 	}
-	free(*root);
-	*root = node;
-
-	reorder(node);
+	else
+	{
+		free(*root);
+		*root = NULL;
+	}
 
 	return (extracted_value);
 }
