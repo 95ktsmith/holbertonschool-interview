@@ -24,10 +24,18 @@ int heap_extract(heap_t **root)
 		else
 			node->parent->right = NULL;
 		node->parent = NULL;
-		node->left = (*root)->left;
-		node->left->parent = node;
-		node->right = (*root)->right;
-		node->right->parent = node;
+		if ((*root)->left == node)
+			node->left = NULL;
+		else
+			node->left = (*root)->left;
+		if ((*root)->right == node)
+			node->right = NULL;
+		else
+			node->right = (*root)->right;
+		if (node->left != NULL)
+			node->left->parent = node;
+		if (node->right != NULL)
+			node->right->parent = node;
 		free(*root);
 		*root = node;
 		reorder(node);
