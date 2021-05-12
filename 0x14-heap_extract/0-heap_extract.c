@@ -1,5 +1,6 @@
 #include "binary_trees.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
  * heap_extract - Extract the root from a binary heap
@@ -15,16 +16,19 @@ int heap_extract(heap_t **root)
 		return (0);
 
 	node = get_last_node(*root);
-	if (node->parent->left == node)
-		node->parent->left = NULL;
-	else
-		node->parent->right = NULL;
-	node->parent = NULL;
-	node->left = (*root)->left;
-	node->left->parent = node;
-	node->right = (*root)->right;
-	node->right->parent = node;
 	extracted_value = (*root)->n;
+	if (node != *root)
+	{
+		if (node->parent->left == node)
+			node->parent->left = NULL;
+		else
+			node->parent->right = NULL;
+		node->parent = NULL;
+		node->left = (*root)->left;
+		node->left->parent = node;
+		node->right = (*root)->right;
+		node->right->parent = node;
+	}
 	free(*root);
 	*root = node;
 
@@ -56,8 +60,9 @@ heap_t *get_last_node(heap_t *root)
 	unsigned int n_nodes, mask = 1;
 
 	n_nodes = count_nodes(root);
-	while (n_nodes / (mask << 1) > 1)
+	while (n_nodes / mask > 1)
 		mask = mask << 1;
+	mask = mask >> 1;
 
 	while (mask)
 	{
