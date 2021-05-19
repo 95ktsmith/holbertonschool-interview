@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
 	if (argc != 3 || !is_numerical(argv[1]) || !is_numerical(argv[2]))
 	{
-		write(STDOUT_FILENO, "Error\n", 6);
+		write(STDERR_FILENO, "Error\n", 6);
 		exit(98);
 	}
 
