@@ -109,6 +109,9 @@ int _strlen(char *str)
  */
 unsigned int is_numerical(char *str)
 {
+	if (_strlen(str) < 1)
+		return (0);
+
 	while (*str)
 	{
 		if (*str < '0' || *str > '9')
