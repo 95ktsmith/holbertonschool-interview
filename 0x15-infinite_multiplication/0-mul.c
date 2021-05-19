@@ -10,6 +10,8 @@
 int main(int argc, char *argv[])
 {
 	char *result;
+	char buf[BUFFER_SIZE];
+	int i = 0;
 
 	if (argc != 3 || !is_numerical(argv[1]) || !is_numerical(argv[2]))
 	{
@@ -17,11 +19,18 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 
-	result = mul_strings(argv[1], argv[2]);
-	write(STDOUT_FILENO, result, _strlen(result));
-	write(STDOUT_FILENO, "\n", 1);
+	while (i < BUFFER_SIZE)
+		buf[i++] = '0';
 
-	free(result);
+	result = mul_strings(argv[1], argv[2], buf);
+	if (result == NULL)
+		write(STDOUT_FILENO, "0\n", 2);
+	else
+	{
+		write(STDOUT_FILENO, result, BUFFER_SIZE - (result - buf));
+		write(STDOUT_FILENO, "\n", 1);
+	}
+
 	return (EXIT_SUCCESS);
 }
 
@@ -29,16 +38,12 @@ int main(int argc, char *argv[])
  * mul_strings - Multiplies two decimal numbers represented as strings
  * @str1: Pointer to string representing the first number
  * @str2: Pointer to string representing the second number
- * Return: Pointer to string representing the product
+ * @buf: Buffer to store the result in
+ * Return: Pointer to first character of the number in the buffer
  */
-char *mul_strings(char *str1, char *str2)
+char *mul_strings(char *str1, char *str2, char buf[])
 {
-	char buffer[BUFFER_SIZE + 1];
 	int len1, len2, ind1, ind2, n = 0, place;
-
-	while (n < BUFFER_SIZE)
-		buffer[n++] = '0';
-	buffer[n] = 0;
 
 	len1 = _strlen(str1);
 	len2 = _strlen(str2);
@@ -48,41 +53,16 @@ char *mul_strings(char *str1, char *str2)
 		{
 			n = (str1[ind1] - 48) * (str2[ind2] - 48);
 			place = (len1 - ind1) + (len2 - ind2);
-			add_to_string(buffer, n, place);
+			add_to_string(buf, n, place);
 		}
 	}
 
-	n = 0;
-	while (buffer[n] && buffer[n] == '0')
+	while (n < BUFFER_SIZE && buf[n] == '0')
 		n++;
 
 	if (n == BUFFER_SIZE)
-		return (_strdup("0"));
-	return (_strdup(buffer + n));
-}
-
-/**
- * _strdup - Duplicates a string
- * @str: String to be duplicated
- * Return: Pointer to start of new string
- */
-char *_strdup(char *str)
-{
-	char *new;
-	int i = 0;
-
-	new = malloc(_strlen(str) + 1);
-	if (new == NULL)
-		exit(EXIT_FAILURE);
-
-	while (str[i])
-	{
-		new[i] = str[i];
-		i++;
-	}
-	new[i] = 0;
-
-	return (new);
+		return (NULL);
+	return (&buf[n]);
 }
 
 /**
