@@ -24,7 +24,10 @@ int main(int argc, char *argv[])
 
 	result = malloc(1);
 	if (result == NULL)
-		return (EXIT_FAILURE);
+	{
+		write(STDOUT_FILENO, "Error\n", 6);
+		exit(98);
+	}
 	free(result);
 
 	result = mul_strings(argv[1], argv[2], buf);
