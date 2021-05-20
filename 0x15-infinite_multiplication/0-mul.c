@@ -22,6 +22,11 @@ int main(int argc, char *argv[])
 	while (i < BUFFER_SIZE)
 		buf[i++] = '0';
 
+	result = malloc(1);
+	if (result == NULL)
+		return (EXIT_FAILURE);
+	free(result);
+
 	result = mul_strings(argv[1], argv[2], buf);
 	if (result == NULL)
 		write(STDOUT_FILENO, "0\n", 2);
