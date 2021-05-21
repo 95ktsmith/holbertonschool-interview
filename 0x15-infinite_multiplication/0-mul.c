@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 		write(STDOUT_FILENO, "\n", 1);
 	}
 
-	return (EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
 }
 
 /**
