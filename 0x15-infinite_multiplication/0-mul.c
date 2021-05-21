@@ -74,14 +74,20 @@ char *mul_strings(char *str1, char *str2, char buf[])
  */
 void add_to_string(char buf[], int n, int place)
 {
-	int ind, sum;
+	int ind, carry, sum;
 
 	ind = BUFFER_SIZE - place + 1;
 	while (n > 0)
 	{
 		sum = (n % 10) + (buf[ind] - 48);
 		buf[ind] = sum % 10 + 48;
-		buf[ind - 1] = buf[ind - 1] + sum / 10;
+		carry = 1;
+		while (sum >= 10)
+		{
+			sum = (buf[ind - carry] - 48) + (sum / 10);
+			buf[ind - carry] = sum % 10 + 48;
+			carry++;
+		}
 		n /= 10;
 		ind--;
 	}
