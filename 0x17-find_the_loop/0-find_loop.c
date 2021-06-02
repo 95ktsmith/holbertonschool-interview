@@ -10,7 +10,7 @@ listint_t *find_listint_loop(listint_t *head)
 {
 	listint_t *slow, *fast;
 
-	if (head == NULL || head->next == NULL || head->next->next)
+	if (head == NULL || head->next == NULL || head->next->next == NULL)
 		return (NULL);
 
 	slow = head->next;
