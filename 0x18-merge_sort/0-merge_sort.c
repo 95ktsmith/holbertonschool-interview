@@ -9,6 +9,26 @@
  */
 void merge_sort(int *array, size_t size)
 {
+	int *tmp;
+
+	if (array == NULL || size < 2)
+		return;
+
+	tmp = malloc(sizeof(int) * size);
+	if (tmp == NULL)
+		exit(EXIT_FAILURE);
+
+	split(array, size, tmp);
+}
+
+/**
+ * split - top-down merge sort
+ * @array: Array of integerss to sort
+ * @size: Number of integers in array
+ * @tmp: Temporary array to use for merging and swapping
+ */
+void split(int *array, size_t size, int *tmp)
+{
 	size_t middle;
 
 	if (array == NULL || size < 2)
@@ -17,10 +37,10 @@ void merge_sort(int *array, size_t size)
 	middle = size / 2;
 
 	/* Left */
-	merge_sort(array, middle);
+	split(array, middle, tmp);
 
 	/* Right */
-	merge_sort(array + middle, size - middle);
+	split(array + middle, size - middle, tmp);
 
 	/* Merge */
 	printf("Merging...\n");
@@ -28,7 +48,7 @@ void merge_sort(int *array, size_t size)
 	print_array(array, middle);
 	printf("[right]: ");
 	print_array(array + middle, size - middle);
-	merge(array, middle, array + middle, size - middle);
+	merge(array, middle, array + middle, size - middle, tmp);
 	printf("[Done]: ");
 	print_array(array, size);
 }
@@ -39,15 +59,11 @@ void merge_sort(int *array, size_t size)
  * @left_s: Number of integers in left array
  * @right: Pointer to start of right array
  * @right_s: Number of integers in right array
+ * @tmp: Temporary array to use for merging and swapping
  */
-void merge(int *left, size_t left_s, int *right, size_t right_s)
+void merge(int *left, size_t left_s, int *right, size_t right_s, int *tmp)
 {
 	size_t i = 0, j = 0;
-	int *tmp;
-
-	tmp = malloc((left_s + right_s) * sizeof(int));
-	if (tmp == NULL)
-		exit(EXIT_FAILURE);
 
 	while (i + j < left_s + right_s)
 	{
@@ -79,5 +95,4 @@ void merge(int *left, size_t left_s, int *right, size_t right_s)
 	for (i = 0; i < left_s + right_s; i++)
 		left[i] = tmp[i];
 
-	free(tmp);
 }
