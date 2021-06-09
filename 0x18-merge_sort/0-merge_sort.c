@@ -19,6 +19,8 @@ void merge_sort(int *array, size_t size)
 		exit(EXIT_FAILURE);
 
 	split(array, size, tmp);
+
+	free(tmp);
 }
 
 /**
@@ -48,7 +50,9 @@ void split(int *array, size_t size, int *tmp)
 	print_array(array, middle);
 	printf("[right]: ");
 	print_array(array + middle, size - middle);
+
 	merge(array, middle, array + middle, size - middle, tmp);
+
 	printf("[Done]: ");
 	print_array(array, size);
 }
@@ -94,5 +98,4 @@ void merge(int *left, size_t left_s, int *right, size_t right_s, int *tmp)
 
 	for (i = 0; i < left_s + right_s; i++)
 		left[i] = tmp[i];
-
 }
