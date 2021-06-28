@@ -10,7 +10,7 @@ def makeChange(coins, total):
     Returns the fewest number of coins
     """
     if total <= 0:
-        return -1
+        return 0
 
     coins = sorted(coins, reverse=True)
     coinCount = 0
