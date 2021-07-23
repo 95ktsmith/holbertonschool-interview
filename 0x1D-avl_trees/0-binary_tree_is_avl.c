@@ -16,6 +16,12 @@ int binary_tree_is_avl(const binary_tree_t *tree)
 	if (!tree->left && !tree->right)
 		return (1);
 
+	if (tree->left && tree->left->n > tree->n)
+		return (0);
+
+	if (tree->right && tree->right->n < tree->n)
+		return (0);
+
 	if (!is_bst(tree->left, tree->n, 0))
 		return (0);
 
