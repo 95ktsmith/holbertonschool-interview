@@ -23,4 +23,4 @@ def isWinner(x, nums):
         else:
             maria += 1
 
-    return "Maria" if maria > ben else "Ben"
+    return None if maria == ben else "Maria" if maria > ben else "Ben"
