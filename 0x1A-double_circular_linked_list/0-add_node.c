@@ -1,5 +1,6 @@
 #include "list.h"
 #include <stdlib.h>
+#include <string.h>
 
 
 /**
@@ -18,7 +19,12 @@ List *add_node_end(List **list, char *str)
 	node = malloc(sizeof(List));
 	if (node == NULL)
 		return (NULL);
-	node->str = str;
+	node->str = strdup(str);
+	if (node->str == NULL)
+	{
+		free(node);
+		return (NULL);
+	}
 
 	if (*list == NULL)
 	{
@@ -54,6 +60,11 @@ List *add_node_begin(List **list, char *str)
 	if (node == NULL)
 		return (NULL);
 	node->str = str;
+	if (node->str == NULL)
+	{
+		free(node);
+		return (NULL);
+	}
 
 	if (*list == NULL)
 	{
